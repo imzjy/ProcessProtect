@@ -25,9 +25,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProcessProtect.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="ProcessProtect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AutoLock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcessProtect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
