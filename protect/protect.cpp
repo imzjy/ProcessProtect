@@ -34,7 +34,7 @@ int wmain(int argc, const wchar_t* argv[])
 
 	enum class Options {
 		Unknown,
-		Add, Remove, Clear
+		Add, Remove, Clear, Query
 	};
 
 	Options option;
@@ -49,6 +49,10 @@ int wmain(int argc, const wchar_t* argv[])
 	else if (::_wcsicmp(argv[1], L"clear") == 0)
 	{
 		option = Options::Clear;
+	}
+	else if (::_wcsicmp(argv[1], L"query") == 0)
+	{
+		option = Options::Query;
 	}
 	else 
 	{
@@ -91,6 +95,27 @@ int wmain(int argc, const wchar_t* argv[])
 			pids.data(), static_cast<DWORD>(pids.size()) * sizeof(DWORD),
 			nullptr, 0, &bytes, nullptr
 		);
+		break;
+	}
+	case Options::Query:
+	{
+		ULONG pids[MAX_PID];
+		::memset(pids, 0, sizeof(pids));
+		success = ::DeviceIoControl(hFile, IOCTL_PROCESS_PROTECT_QUERY,
+			nullptr, 0,
+			pids, MAX_PID * sizeof(ULONG),
+			&bytes, nullptr
+		);
+
+		for (int i = 0; i < MAX_PID; i++)
+		{
+			if (pids[i] != 0)
+			{
+				printf("%u ", pids[i]);
+			}
+		}
+		printf("\n");
+
 		break;
 	}
 	}

@@ -2,9 +2,10 @@
 #define PROCESS_TERMINATE 1
 
 #include "pch.h"
+#include "ProcessProtectCommon.h"
 #include "FastMutex.h"
 
-const int MaxPids = 256;
+const int MaxPids = MAX_PID;
 
 struct Globals {
 	int PidsCount;			//currect protected process count

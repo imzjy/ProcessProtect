@@ -192,6 +192,28 @@ NTSTATUS ProcessProtectDeviceControl(PDEVICE_OBJECT, PIRP Irp) {
 		g_Data.PidsCount = 0;
 		break;
 	}
+
+	case IOCTL_PROCESS_PROTECT_QUERY:
+	{
+		auto size = stack->Parameters.DeviceIoControl.OutputBufferLength;
+		if (size % sizeof(ULONG) != 0)
+		{
+			status = STATUS_INVALID_BUFFER_SIZE;
+			break;
+		}
+
+		auto data = (ULONG*)Irp->UserBuffer;
+
+		AutoLock<FastMutex> locker(g_Data.Lock);
+
+		for (int i = 0; i < size / sizeof(ULONG); i++)
+		{
+			auto pid = g_Data.Pids[i];
+			data[i] = pid;
+		}
+		break;
+	}
+
 	default:
 		status = STATUS_INVALID_DEVICE_REQUEST;
 		break;
