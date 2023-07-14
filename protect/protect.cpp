@@ -25,7 +25,7 @@ std::vector<DWORD> ParsePids(const wchar_t* buffer[], int count) {
 	return pids;
 }
 
-int main(int argc, const wchar_t* argv[])
+int wmain(int argc, const wchar_t* argv[])
 {
 	if (argc < 2)
 	{
@@ -50,8 +50,9 @@ int main(int argc, const wchar_t* argv[])
 	{
 		option = Options::Clear;
 	}
-	else {
-		printf("Unknown option.\n");
+	else 
+	{
+		printf("Unknown option. Option: %S\n", argv[1]);
 		return PrintUsage();
 	}
 
