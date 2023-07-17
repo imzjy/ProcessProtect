@@ -238,6 +238,7 @@ OB_PREOP_CALLBACK_STATUS OnPreOpenProcess(PVOID /* RegistrationContext */, POB_P
 	AutoLock<FastMutex> locker(g_Data.Lock);
 	if (FindProcess(pid))
 	{
+		/* CORE: remove terminate permission */
 		Info->Parameters->CreateHandleInformation.DesiredAccess &= ~PROCESS_TERMINATE;
 	}
 
